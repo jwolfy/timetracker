@@ -1,0 +1,5 @@
+.vscode
+*.db
+.pytest_cache
+.coverage
+*.pyc

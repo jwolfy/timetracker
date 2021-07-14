@@ -1,19 +1,33 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Hello timetracker"/>
+    <main>
+      <section class="section">
+        <component :is="layout">
+          <router-view />
+        </component>
+      </section>
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MainLayout from "@/layouts/MainLayout";
+import EmptyLayout from "@/layouts/EmptyLayout";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: {MainLayout, EmptyLayout},
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || "empty") + "-layout";
+    },
+  },
+};
 </script>
 
 <style>
+body {
+  background: hsl(0, 0%, 96%);
+  height: 100vh;
+}
 </style>

@@ -5,10 +5,13 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import Axios from "axios";
+import "../node_modules/@fortawesome/fontawesome-free/js/all.js";
 
 Vue.config.productionTip = false;
 
-Vue.use(Buefy);
+Vue.use(Buefy, {
+  defaultIconPack: "fas",
+});
 
 Vue.prototype.$http = Axios;
 const token = localStorage.getItem("token");

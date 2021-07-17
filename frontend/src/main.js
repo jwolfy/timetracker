@@ -19,6 +19,16 @@ if (token) {
   Vue.prototype.$http.defaults.headers.common["X-Access-Token"] = token;
 }
 
+Vue.prototype.$http.interceptors.response.use(null, function(err) {
+  return new Promise(function() {
+    console.log("intercepted!");
+    if (err.response.status === 401) {
+      store.dispatch("logout");
+      router.push("/login");
+    }
+  });
+});
+
 new Vue({
   router,
   store,

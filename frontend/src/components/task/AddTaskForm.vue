@@ -1,19 +1,22 @@
 <template>
-  <b-field grouped>
+  <b-field>
     <b-datepicker
       placeholder="Date"
-      icon="calendar-today"
+      v-model="spent_on"
+      icon="calendar-alt"
       editable
+      :date-formatter="(date) => date.toISOString().split('T')[0]"
     ></b-datepicker>
     <b-autocomplete
-      v-model="issue_id"
+      icon="search"
+      v-model="name"
       placeholder="Issue"
       :keep-first="true"
-      :open-on-focus="true"
       :clearable="true"
       :data="filteredIssues"
       field="issue_id"
       :custom-formatter="(issue) => `${issue.issue_id} - ${issue.subject}`"
+      @select="(option) => (selectedIssueId = option.issue_id)"
     ></b-autocomplete>
     <b-input placeholder="Subject" v-model="subject"></b-input>
     <b-button type="is-success">Add</b-button>
@@ -27,9 +30,9 @@ export default {
   name: "AddTaskForm",
   data() {
     return {
-      issue_id: "",
-      issue: {},
-      spent_on: "",
+      name: "",
+      selectedIssueId: null,
+      spent_on: new Date(),
       subject: "",
     };
   },
@@ -38,8 +41,8 @@ export default {
     filteredIssues() {
       return this.allIssues.filter((issue) => {
         return (
-          issue.issue_id.toString().indexOf(this.issue_id) >= 0 ||
-          issue.subject.toLowerCase().indexOf(this.issue_id.toLowerCase()) >= 0
+          issue.issue_id.toString().indexOf(this.name) >= 0 ||
+          issue.subject.toLowerCase().indexOf(this.name.toLowerCase()) >= 0
         );
       });
     },

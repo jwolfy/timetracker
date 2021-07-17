@@ -11,7 +11,6 @@ const getters = {
 const actions = {
   async fetchIssues({ commit }) {
     const response = await axios.get("http://localhost:5000/api/issues");
-
     commit("setIssues", response.data.issues);
   },
 };

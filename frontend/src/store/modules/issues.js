@@ -1,37 +1,24 @@
-// import axios from "axios";
+import axios from "axios";
 
 const state = {
-  issues: [
-    {
-      is_active: true,
-      issue_id: 4311,
-      subject: "Skype meetings/discussions",
-    },
-    {
-      is_active: true,
-      issue_id: 4316,
-      subject: "Tickers updates",
-    },
-    {
-      is_active: true,
-      issue_id: 5789,
-      subject: "Adhoc issues",
-    },
-    {
-      is_active: true,
-      issue_id: 9206,
-      subject: "Velacroix.com",
-    },
-  ],
+  issues: [],
 };
 
 const getters = {
   allIssues: (state) => state.issues,
 };
 
-const actions = {};
+const actions = {
+  async fetchIssues({ commit }) {
+    const response = await axios.get("http://localhost:5000/api/issues");
 
-const mutations = {};
+    commit("setIssues", response.data.issues);
+  },
+};
+
+const mutations = {
+  setIssues: (state, issues) => (state.issues = issues),
+};
 
 export default {
   state,

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "AddTaskForm",
@@ -36,6 +36,9 @@ export default {
       subject: "",
     };
   },
+  methods: {
+    ...mapActions(["fetchIssues"]),
+  },
   computed: {
     ...mapGetters(["allIssues"]),
     filteredIssues() {
@@ -46,6 +49,9 @@ export default {
         );
       });
     },
+  },
+  created() {
+    this.fetchIssues();
   },
 };
 </script>

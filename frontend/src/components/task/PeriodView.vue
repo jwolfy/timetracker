@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <h1 class="is-size-3">Period view</h1>
-    {{ groupedTasks }}
+    <div v-for="(data, date) in groupedTasks" :key="date">
+      {{ date }}
+      {{ data }}
+    </div>
   </div>
 </template>
 

@@ -8,6 +8,7 @@ const getters = {
   tasksForRange: (state) => state.tasks,
   groupedTasks: (state, getters, rootState) => {
     return state.tasks.reduce((accumulator, task) => {
+      const spent_on = task["spent_on"];
       const issue_id = task["issue_id"];
       const issue = rootState.issues.issues.filter(
         (issue) => issue.issue_id === issue_id
@@ -20,7 +21,10 @@ const getters = {
           ).concat(task),
         }),
       };
-      return Object.assign(accumulator, issueData);
+      const dateData = {
+        [spent_on]: Object.assign(accumulator[spent_on] || {}, issueData),
+      };
+      return Object.assign(accumulator, dateData);
     }, {});
   },
 };

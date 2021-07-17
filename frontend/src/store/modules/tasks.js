@@ -6,6 +6,23 @@ const state = {
 
 const getters = {
   tasksForRange: (state) => state.tasks,
+  groupedTasks: (state, getters, rootState) => {
+    return state.tasks.reduce((accumulator, task) => {
+      const issue_id = task["issue_id"];
+      const issue = rootState.issues.issues.filter(
+        (issue) => issue.issue_id === issue_id
+      )[0];
+      const issueData = {
+        [issue_id]: Object.assign(accumulator[issue_id] || {}, {
+          issue: issue != undefined ? issue : null,
+          tasks: (
+            (accumulator[issue_id] || { tasks: [] })["tasks"] || []
+          ).concat(task),
+        }),
+      };
+      return Object.assign(accumulator, issueData);
+    }, {});
+  },
 };
 
 const actions = {

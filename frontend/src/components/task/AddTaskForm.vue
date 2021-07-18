@@ -44,15 +44,12 @@ export default {
       return momentToDateString(momentDate);
     },
     createTask() {
-      console.log("add");
-      const task = {
+      this.addTask({
         issue_id: this.selectedIssueId,
         spent_on: this.toDate(moment(this.spent_on)),
         comment: this.comment,
-      };
+      });
       this.comment = "";
-      console.log(task);
-      this.addTask(task);
     },
   },
   computed: {

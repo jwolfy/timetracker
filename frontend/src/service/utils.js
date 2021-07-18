@@ -6,7 +6,6 @@ const totalDurationForPeriod = (data) => {
     if (Number.isInteger(Number(firstKey))) {
       return totalForOneDay(data).toFixed(1);
     } else {
-      console.log(data);
       return totalForDays(data).toFixed(1);
     }
   }

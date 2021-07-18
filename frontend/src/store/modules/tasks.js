@@ -7,24 +7,26 @@ const state = {
 const getters = {
   tasksForRange: (state) => state.tasks,
   groupedTasks: (state, getters, rootState) => {
-    return state.tasks.reduce((accumulator, task) => {
+    return state.tasks.reduce((existingData, task) => {
       const spent_on = task["spent_on"];
       const issue_id = task["issue_id"];
       const issue = rootState.issues.issues.filter(
         (issue) => issue.issue_id === issue_id
       )[0];
-      const issueData = {
-        [issue_id]: Object.assign(accumulator[issue_id] || {}, {
-          issue: issue != undefined ? issue : null,
-          tasks: (
-            (accumulator[issue_id] || { tasks: [] })["tasks"] || []
-          ).concat(task),
-        }),
-      };
-      const dateData = {
-        [spent_on]: Object.assign(accumulator[spent_on] || {}, issueData),
-      };
-      return Object.assign(accumulator, dateData);
+
+      const existingDateData = existingData[spent_on] || {}
+      const existingIssueIdData = existingDateData[issue_id] || {}
+      const existingTasks = existingIssueIdData.tasks || []
+
+      existingTasks.push(task);
+
+      existingIssueIdData.issue = issue
+      existingIssueIdData.tasks = existingTasks
+
+      existingDateData[issue_id] = existingIssueIdData
+      existingData[spent_on] = existingDateData
+
+      return existingData;
     }, {});
   },
 };

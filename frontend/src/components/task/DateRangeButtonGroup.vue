@@ -68,7 +68,6 @@ export default {
   computed: {
     ...mapGetters(["tasksForRange"]),
   },
-  created() {},
 };
 </script>
 

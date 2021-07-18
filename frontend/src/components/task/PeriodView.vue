@@ -1,24 +1,25 @@
 <template>
   <div class="container">
-    <h1 class="is-size-3">Period view</h1>
+    {{ totalForPeriod(groupedTasks) }}
     <div v-for="(data, date) in groupedTasks" :key="date">
-      {{ date }}
-      {{ data }}
+      <DayView :date="date" :data="data" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import DayView from "@/components/task/DayView";
+import { totalDurationForPeriod } from "@/service/utils";
 
 export default {
   name: "PeriodView",
-  props: {
-    data: Object,
-  },
-  methods: {},
+  components: { DayView },
   computed: {
     ...mapGetters(["groupedTasks"]),
+  },
+  methods: {
+    totalForPeriod: totalDurationForPeriod,
   },
 };
 </script>

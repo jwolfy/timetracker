@@ -33,7 +33,6 @@ export default {
   },
   methods: {
     login: function() {
-      console.log("login");
       let name = this.name;
       let password = this.password;
       this.$store

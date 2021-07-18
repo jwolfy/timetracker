@@ -31,8 +31,6 @@ const getters = {
 
 const actions = {
   async fetchTasks({ commit }, { startDate, endDate }) {
-    console.log(startDate);
-    console.log(endDate);
     const response = await axios.get("http://localhost:5000/api/tasks", {
       params: { start_date: startDate, end_date: endDate },
     });

@@ -21,7 +21,6 @@ if (token) {
 
 Vue.prototype.$http.interceptors.response.use(null, function(err) {
   return new Promise(function() {
-    console.log("intercepted!");
     if (err.response.status === 401) {
       store.dispatch("logout");
       router.push("/login");

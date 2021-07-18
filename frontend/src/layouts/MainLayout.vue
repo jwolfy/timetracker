@@ -4,6 +4,9 @@
     <div class="main-content">
       <router-view />
     </div>
+    <div class="timer">
+      timer
+    </div>
   </div>
 </template>
 
@@ -29,5 +32,9 @@ export default {
 
 .main-content {
   flex: 4;
+}
+
+.timer {
+  flex: 1;
 }
 </style>

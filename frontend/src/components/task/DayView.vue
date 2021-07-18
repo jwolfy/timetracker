@@ -1,18 +1,20 @@
 <template>
   <div>
-    {{ date }}
-    <div v-for="(data, issue_id) in data" :key="issue_id">
-      {{ issue_id }}
-      {{ data.issue }}
-      {{ data.tasks }}
+    <div class="date is-size-4">
+      {{ date }}
+    </div>
+    <div v-for="(issueData, issue_id) in data" :key="issue_id">
+      <IssueView :data="issueData" />
     </div>
   </div>
 </template>
 
 <script>
 import { totalDurationForPeriod } from "@/service/utils";
+import IssueView from "@/components/task/IssueView";
 
 export default {
+  components: { IssueView },
   props: {
     date: String,
     data: Object,

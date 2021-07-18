@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    {{ totalForPeriod(groupedTasks) }}
-    <div v-for="(data, date) in groupedTasks" :key="date">
+    <div class="total-for-period is-size-4 has-text-right">
+      {{ totalForPeriod(groupedTasks) }}
+    </div>
+    <div v-for="(data, date) in groupedTasks" :key="date" class="mb-4">
       <DayView :date="date" :data="data" />
     </div>
   </div>

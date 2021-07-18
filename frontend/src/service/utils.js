@@ -36,4 +36,4 @@ const secondsToHours = (duration) => {
   return Math.round((duration / 3600) * 10) / 10;
 };
 
-export { totalDurationForPeriod };
+export { totalDurationForPeriod, secondsToHours };

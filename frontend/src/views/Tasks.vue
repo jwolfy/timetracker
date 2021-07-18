@@ -1,14 +1,8 @@
 <template>
   <div>
-    <section class="section">
       <AddTaskForm />
-    </section>
-    <section class="section">
       <DateRangeButtonGroup />
-    </section>
-    <section class="section">
       <PeriodView />
-    </section>
   </div>
 </template>
 

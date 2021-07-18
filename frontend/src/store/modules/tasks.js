@@ -42,11 +42,17 @@ const actions = {
     const response = await axios.post("http://localhost:5000/api/tasks", task);
     commit("newTask", response.data.task);
   },
+  async deleteTask({ commit }, id) {
+    await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+    commit("removeTask", id);
+  },
 };
 
 const mutations = {
   setTasks: (state, tasks) => (state.tasks = tasks),
   newTask: (state, task) => state.tasks.push(task),
+  removeTask: (state, id) =>
+    (state.tasks = state.tasks.filter((task) => task.id !== id)),
 };
 
 export default {

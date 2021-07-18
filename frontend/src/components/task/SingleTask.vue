@@ -1,5 +1,14 @@
 <template>
   <div class="container single-task">
+    <div class="task-delete-button">
+      <b-button
+        size="is-small is-text"
+        icon-right="fas fa-trash-alt"
+        type="is-danger is-light"
+        @click="deleteTask(task.id)"
+      >
+      </b-button>
+    </div>
     <div class="task-edit-button">
       <b-button size="is-small is-text" icon-right="fas fa-edit"> </b-button>
     </div>
@@ -21,11 +30,16 @@
 
 <script>
 import { secondsToHours } from "@/service/utils";
+import { mapActions } from "vuex";
 
 export default {
   props: { task: Object },
   methods: {
+    ...mapActions(["deleteTask"]),
     secondsToHours: secondsToHours,
+    removeTask(id) {
+      this.deleteTask(id);
+    },
   },
 };
 </script>

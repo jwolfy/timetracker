@@ -10,7 +10,11 @@
       {{ secondsToHours(task.duration) }}
     </div>
     <div class="task-start-button">
-      <b-button size="is-small is-text rounded" icon-right="fas fa-play"></b-button>
+      <b-button
+        size="is-small is-text rounded"
+        type="is-success is-light"
+        icon-right="fas fa-play"
+      ></b-button>
     </div>
   </div>
 </template>
@@ -33,7 +37,7 @@ export default {
 }
 
 .task-edit-button {
-  flex: 1
+  flex: 1;
 }
 
 .task-comment {

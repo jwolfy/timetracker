@@ -6,7 +6,7 @@ const totalDurationForPeriod = (data) => {
     if (Number.isInteger(Number(firstKey))) {
       return totalForOneDay(data).toFixed(1);
     } else {
-      console.log(data)
+      console.log(data);
       return totalForDays(data).toFixed(1);
     }
   }
@@ -36,4 +36,8 @@ const secondsToHours = (duration) => {
   return Math.round((duration / 3600) * 10) / 10;
 };
 
-export { totalDurationForPeriod, secondsToHours };
+const momentToDateString = (momentDate) => {
+  return momentDate.format("YYYY-MM-DD");
+};
+
+export { totalDurationForPeriod, secondsToHours, momentToDateString };

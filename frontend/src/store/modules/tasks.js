@@ -14,17 +14,17 @@ const getters = {
         (issue) => issue.issue_id === issue_id
       )[0];
 
-      const existingDateData = existingData[spent_on] || {}
-      const existingIssueIdData = existingDateData[issue_id] || {}
-      const existingTasks = existingIssueIdData.tasks || []
+      const existingDateData = existingData[spent_on] || {};
+      const existingIssueIdData = existingDateData[issue_id] || {};
+      const existingTasks = existingIssueIdData.tasks || [];
 
       existingTasks.push(task);
 
-      existingIssueIdData.issue = issue
-      existingIssueIdData.tasks = existingTasks
+      existingIssueIdData.issue = issue;
+      existingIssueIdData.tasks = existingTasks;
 
-      existingDateData[issue_id] = existingIssueIdData
-      existingData[spent_on] = existingDateData
+      existingDateData[issue_id] = existingIssueIdData;
+      existingData[spent_on] = existingDateData;
 
       return existingData;
     }, {});
@@ -38,10 +38,15 @@ const actions = {
     });
     commit("setTasks", response.data.tasks);
   },
+  async addTask({ commit }, task) {
+    const response = await axios.post("http://localhost:5000/api/tasks", task);
+    commit("newTask", response.data.task);
+  },
 };
 
 const mutations = {
   setTasks: (state, tasks) => (state.tasks = tasks),
+  newTask: (state, task) => state.tasks.push(task),
 };
 
 export default {

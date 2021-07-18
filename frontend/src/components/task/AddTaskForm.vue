@@ -18,13 +18,15 @@
       :custom-formatter="(issue) => `${issue.issue_id} - ${issue.subject}`"
       @select="(option) => (selectedIssueId = option.issue_id)"
     ></b-autocomplete>
-    <b-input placeholder="Subject" v-model="subject"></b-input>
-    <b-button type="is-success">Add</b-button>
+    <b-input placeholder="Comment" v-model="comment"></b-input>
+    <b-button type="is-success" @click="createTask">Add</b-button>
   </b-field>
 </template>
 
 <script>
+import moment from "moment";
 import { mapGetters, mapActions } from "vuex";
+import { momentToDateString } from "@/service/utils";
 
 export default {
   name: "AddTaskForm",
@@ -33,11 +35,25 @@ export default {
       name: "",
       selectedIssueId: null,
       spent_on: new Date(),
-      subject: "",
+      comment: "",
     };
   },
   methods: {
-    ...mapActions(["fetchIssues"]),
+    ...mapActions(["fetchIssues", "addTask"]),
+    toDate(momentDate) {
+      return momentToDateString(momentDate);
+    },
+    createTask() {
+      console.log("add");
+      const task = {
+        issue_id: this.selectedIssueId,
+        spent_on: this.toDate(moment(this.spent_on)),
+        comment: this.comment,
+      };
+      this.comment = "";
+      console.log(task);
+      this.addTask(task);
+    },
   },
   computed: {
     ...mapGetters(["allIssues"]),

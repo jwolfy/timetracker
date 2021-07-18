@@ -16,6 +16,7 @@
 <script>
 import moment from "moment";
 import { mapGetters, mapActions } from "vuex";
+import { momentToDateString } from "@/service/utils";
 
 export default {
   data() {
@@ -38,18 +39,34 @@ export default {
         },
         {
           name: "Last week",
-          startDate: this.toDate(moment().startOf("isoWeek").subtract(7, "days")),
-          endDate: this.toDate(moment().startOf("isoWeek").subtract(1, "days")),
+          startDate: this.toDate(
+            moment()
+              .startOf("isoWeek")
+              .subtract(7, "days")
+          ),
+          endDate: this.toDate(
+            moment()
+              .startOf("isoWeek")
+              .subtract(1, "days")
+          ),
         },
         {
           name: "This month",
-          startDate: this.toDate(moment().startOf('month')),
+          startDate: this.toDate(moment().startOf("month")),
           endDate: this.toDate(moment()),
         },
         {
           name: "Last month",
-          startDate: this.toDate(moment().startOf('month').subtract(1, "month")),
-          endDate: this.toDate(moment().startOf('month').subtract(1, "days")),
+          startDate: this.toDate(
+            moment()
+              .startOf("month")
+              .subtract(1, "month")
+          ),
+          endDate: this.toDate(
+            moment()
+              .startOf("month")
+              .subtract(1, "days")
+          ),
         },
         {
           name: "Custom range",
@@ -61,8 +78,8 @@ export default {
   },
   methods: {
     ...mapActions(["fetchTasks"]),
-    toDate(date) {
-      return date.format("YYYY-MM-DD");
+    toDate(momentDate) {
+      return momentToDateString(momentDate);
     },
   },
   computed: {

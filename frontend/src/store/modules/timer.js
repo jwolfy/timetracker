@@ -27,6 +27,10 @@ const actions = {
     });
     commit("setTimer", response.data.timer);
   },
+  async stopTimer({ commit }) {
+    const response = await axios.delete("http://localhost:5000/api/timer");
+    commit("setTimer", response.data.timer);
+  },
 };
 
 const mutations = {

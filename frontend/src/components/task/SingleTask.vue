@@ -24,6 +24,7 @@
         size="is-small is-text rounded"
         type="is-danger is-light"
         icon-right="stop"
+        @click="stopTimer"
       ></b-button>
       <b-button
         v-else
@@ -46,7 +47,7 @@ export default {
     ...mapGetters(["isTimerRunningForTask"]),
   },
   methods: {
-    ...mapActions(["deleteTask", "startTimer"]),
+    ...mapActions(["deleteTask", "startTimer", "stopTimer"]),
     secondsToHours: secondsToHours,
     removeTask(id) {
       this.deleteTask(id);

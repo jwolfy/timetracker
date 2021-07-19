@@ -3,14 +3,14 @@
     <div class="task-delete-button">
       <b-button
         size="is-small is-text"
-        icon-right="fas fa-trash-alt"
+        icon-right="trash-alt"
         type="is-danger is-light"
         @click="deleteTask(task.id)"
       >
       </b-button>
     </div>
     <div class="task-edit-button">
-      <b-button size="is-small is-text" icon-right="fas fa-edit"> </b-button>
+      <b-button size="is-small is-text" icon-right="edit"> </b-button>
     </div>
     <div class="task-comment">
       {{ task.comment }}
@@ -20,9 +20,17 @@
     </div>
     <div class="task-start-button">
       <b-button
+        v-if="isTimerRunningForTask(task.id)"
+        size="is-small is-text rounded"
+        type="is-danger is-light"
+        icon-right="stop"
+      ></b-button>
+      <b-button
+        v-else
         size="is-small is-text rounded"
         type="is-success is-light"
-        icon-right="fas fa-play"
+        icon-right="play"
+        @click="startTask(task.id)"
       ></b-button>
     </div>
   </div>
@@ -30,15 +38,21 @@
 
 <script>
 import { secondsToHours } from "@/service/utils";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   props: { task: Object },
+  computed: {
+    ...mapGetters(["isTimerRunningForTask"]),
+  },
   methods: {
-    ...mapActions(["deleteTask"]),
+    ...mapActions(["deleteTask", "startTimer"]),
     secondsToHours: secondsToHours,
     removeTask(id) {
       this.deleteTask(id);
+    },
+    startTask(id) {
+      this.startTimer(id);
     },
   },
 };

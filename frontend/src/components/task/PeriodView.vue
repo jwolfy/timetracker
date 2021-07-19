@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="total-for-period is-size-4 has-text-right">
+    <div class="total-for-period is-size-4 has-text-left">
       {{ totalForPeriod(groupedTasks) }}
     </div>
     <div v-for="(data, date) in groupedTasks" :key="date" class="mb-4">

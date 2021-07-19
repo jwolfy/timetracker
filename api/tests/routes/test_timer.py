@@ -15,6 +15,7 @@ def test_timer_params_are_initially_not_set(client, issue_token):
     assert timer['task_id'] is None
     assert timer['started_at'] is None
     assert timer['elapsed'] == 0
+    assert timer['task'] is None
 
 
 def test_timer_params_are_set_on_start(client, issue_token):
@@ -27,6 +28,9 @@ def test_timer_params_are_set_on_start(client, issue_token):
     assert timer['task_id'] == task_id
     assert timer['started_at'] is not None
     assert timer['elapsed'] == 0
+    assert timer['task']['comment'] == TASK_1['comment']
+    assert timer['task']['issue_id'] == TASK_1['issue_id']
+    assert timer['task']['spent_on'] == TASK_1['spent_on']
 
 
 def test_starting_timer_for_nonexistent_task_returns_not_found_error(client, issue_token):
@@ -51,6 +55,9 @@ def test_starting_running_timer_resets_params(client, issue_token):
     assert timer['task_id'] == task_2_id
     assert timer['started_at'] is not None
     assert timer['elapsed'] == 0
+    assert timer['task']['comment'] == TASK_2['comment']
+    assert timer['task']['issue_id'] == TASK_2['issue_id']
+    assert timer['task']['spent_on'] == TASK_2['spent_on']
 
 
 def test_stopping_timer_clears_all_params(client, issue_token):
@@ -67,3 +74,4 @@ def test_stopping_timer_clears_all_params(client, issue_token):
     assert timer['task_id'] is None
     assert timer['started_at'] is None
     assert timer['elapsed'] == 0
+    assert timer['task'] is None

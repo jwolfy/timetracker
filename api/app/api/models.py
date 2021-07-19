@@ -1,5 +1,6 @@
 import time
 
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -47,6 +48,27 @@ class Task(db.Model):
     def get(cls, current_user, id):
         return cls.query.filter_by(user_id=current_user.id, id=id).first()
 
+    @classmethod
+    def date_to_str(cls, date: datetime.date) -> str:
+        if date:
+            return date.strftime('%Y-%m-%d')
+        return None
+
+    @classmethod
+    def str_to_date(cls, date_str: str) -> datetime.date:
+        if date_str:
+            return datetime.strptime(date_str, '%Y-%m-%d').date()
+        return None
+
+    def as_dict(self) -> dict:
+        return {
+            'id': self.id,
+            'issue_id': self.issue_id,
+            'comment': self.comment,
+            'spent_on': Task.date_to_str(self.spent_on),
+            'duration': self.duration,
+        }
+
 
 class Timer(db.Model):
     __tablename__ = 'timer'
@@ -54,6 +76,7 @@ class Timer(db.Model):
     is_running = db.Column(db.Boolean, nullable=False, default=False)
     task_id = db.Column(db.Integer, db.ForeignKey('task.id'), nullable=True)
     started_at = db.Column(db.Integer, nullable=True)
+    task = db.relationship('Task')
 
     def as_dict(self) -> dict:
         return {
@@ -61,6 +84,7 @@ class Timer(db.Model):
             'task_id': self.task_id,
             'started_at': self.started_at,
             'elapsed': int(time.time()) - self.started_at if self.is_running else 0,
+            'task': self.task.as_dict() if self.task else None,
         }
 
     def start(self, task_id) -> dict:

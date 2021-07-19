@@ -16,7 +16,7 @@
 <script>
 import moment from "moment";
 import { mapGetters, mapActions } from "vuex";
-import { momentToDateString } from "@/service/utils";
+import { toDate } from "@/service/utils";
 
 export default {
   data() {
@@ -78,9 +78,7 @@ export default {
   },
   methods: {
     ...mapActions(["fetchTasks"]),
-    toDate(momentDate) {
-      return momentToDateString(momentDate);
-    },
+    toDate: toDate,
   },
   computed: {
     ...mapGetters(["tasksForRange"]),

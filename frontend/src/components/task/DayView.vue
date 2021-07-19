@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="date is-size-4">
+    <div class="date is-size-4 has-text-grey">
       {{ date }}
     </div>
     <div v-for="(issueData, issue_id) in data" :key="issue_id">

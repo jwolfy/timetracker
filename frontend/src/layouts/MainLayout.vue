@@ -5,18 +5,20 @@
       <router-view />
     </div>
     <div class="timer">
-      timer
+      <Timer />
     </div>
   </div>
 </template>
 
 <script>
 import Sidebar from "@/components/Sidebar";
+import Timer from "@/components/Timer";
 
 export default {
   name: "MainLayout",
   components: {
     Sidebar,
+    Timer,
   },
 };
 </script>

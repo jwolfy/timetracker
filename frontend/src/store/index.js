@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import auth from "./modules/auth";
 import issues from "./modules/issues";
 import tasks from "./modules/tasks";
+import timer from "./modules/timer";
 
 Vue.use(Vuex);
 
@@ -11,5 +12,6 @@ export default new Vuex.Store({
     auth,
     issues,
     tasks,
+    timer,
   },
 });

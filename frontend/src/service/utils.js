@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const totalDurationForPeriod = (data) => {
   if ("tasks" in data) {
     return totalForSingleIssue(data.tasks).toFixed(1);
@@ -35,8 +37,11 @@ const secondsToHours = (duration) => {
   return Math.round((duration / 3600) * 10) / 10;
 };
 
-const momentToDateString = (momentDate) => {
-  return momentDate.format("YYYY-MM-DD");
+const toDate = (date) => {
+  if (date instanceof Date) {
+    return moment(date).format("YYYY-MM-DD");
+  }
+  return date.format("YYYY-MM-DD");
 };
 
-export { totalDurationForPeriod, secondsToHours, momentToDateString };
+export { totalDurationForPeriod, secondsToHours, toDate };

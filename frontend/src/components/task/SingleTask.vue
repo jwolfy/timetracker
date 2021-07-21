@@ -63,6 +63,7 @@ export default {
 
 .task-edit-button {
   flex: 1;
+  opacity: 0;
 }
 
 .task-comment {
@@ -75,5 +76,9 @@ export default {
 
 .task-start-button {
   flex: 1;
+}
+
+.single-task:hover .task-edit-button {
+  opacity: 0.7;
 }
 </style>

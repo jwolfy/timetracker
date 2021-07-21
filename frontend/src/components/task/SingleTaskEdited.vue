@@ -1,20 +1,20 @@
 <template>
   <div class="container single-edited-task">
-    <div class="task-save-button">
-      <b-button
-        size="is-small is-text"
-        icon-right="save"
-        type="is-success is-light"
-        @click="saveTask"
-      >
-      </b-button>
-    </div>
     <div class="task-cancel-button">
       <b-button
         size="is-small is-text"
         icon-right="window-close"
         type="is-light"
         @click="cancelEditTask"
+      >
+      </b-button>
+    </div>
+    <div class="task-save-button">
+      <b-button
+        size="is-small is-text"
+        icon-right="save"
+        type="is-success is-light"
+        @click="saveTask"
       >
       </b-button>
     </div>

@@ -7,7 +7,7 @@ const state = {
 const getters = {
   tasksForRange: (state) => state.tasks,
   groupedTasks: (state, getters, rootState) => {
-    return state.tasks.reduce((existingData, task) => {
+    const tasks = state.tasks.reduce((existingData, task) => {
       const spent_on = task["spent_on"];
       const issue_id = task["issue_id"];
       const issue = rootState.issues.issues.filter(
@@ -28,6 +28,12 @@ const getters = {
 
       return existingData;
     }, {});
+    return Object.keys(tasks)
+      .sort()
+      .reduce((obj, key) => {
+        obj[key] = tasks[key];
+        return obj;
+      }, {});
   },
 };
 

@@ -1,16 +1,12 @@
 <template>
   <div class="container single-task">
-    <div class="task-delete-button">
+    <div class="task-edit-button">
       <b-button
+        @click="editTaskById(task.id)"
         size="is-small is-text"
-        icon-right="trash-alt"
-        type="is-danger is-light"
-        @click="deleteTask(task.id)"
+        icon-right="edit"
       >
       </b-button>
-    </div>
-    <div class="task-edit-button">
-      <b-button size="is-small is-text" icon-right="edit"> </b-button>
     </div>
     <div class="task-comment">
       {{ task.comment }}
@@ -44,16 +40,16 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   props: { task: Object },
   computed: {
-    ...mapGetters(["isTimerRunningForTask"]),
+    ...mapGetters(["isTimerRunningForTask", "editedTaskId"]),
   },
   methods: {
-    ...mapActions(["deleteTask", "startTimer", "stopTimer"]),
+    ...mapActions(["startTimer", "stopTimer", "editTask"]),
     secondsToHours: secondsToHours,
-    removeTask(id) {
-      this.deleteTask(id);
-    },
     startTask(id) {
       this.startTimer(id);
+    },
+    editTaskById(id) {
+      this.editTask(id);
     },
   },
 };

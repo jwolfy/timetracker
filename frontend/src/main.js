@@ -21,6 +21,8 @@ import {
   faAngleRight,
   faTimesCircle,
   faExclamationCircle,
+  faSave,
+  faWindowClose,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Font Awesome icons
@@ -35,7 +37,9 @@ library.add(
   faAngleLeft,
   faAngleRight,
   faTimesCircle,
-  faExclamationCircle
+  faExclamationCircle,
+  faSave,
+  faWindowClose,
 );
 
 Vue.config.productionTip = false;

@@ -2,6 +2,7 @@ import axios from "axios";
 
 const state = {
   tasks: [],
+  editedTaskId: null,
 };
 
 const getters = {
@@ -35,6 +36,9 @@ const getters = {
         return obj;
       }, {});
   },
+  editedTaskId: (state) => state.editedTaskId,
+  editedTask: (state, getters) =>
+    state.tasks.filter((task) => task.id === getters.editedTaskId)[0],
 };
 
 const actions = {
@@ -52,6 +56,16 @@ const actions = {
     await axios.delete(`http://localhost:5000/api/tasks/${id}`);
     commit("removeTask", id);
   },
+  async updateTask({ commit }, task) {
+    const response = await axios.put(`http://localhost:5000/api/tasks/${task.id}`, task);
+    commit("updateTask", response.data.task);
+  },
+  editTask({ commit }, id) {
+    commit("setEditedTaskId", id);
+  },
+  cancelEditTask({ commit }) {
+    commit("clearEditedTaskId");
+  },
 };
 
 const mutations = {
@@ -59,6 +73,14 @@ const mutations = {
   newTask: (state, task) => state.tasks.push(task),
   removeTask: (state, id) =>
     (state.tasks = state.tasks.filter((task) => task.id !== id)),
+  updateTask: (state, updatedTask) => {
+    const index = state.tasks.findIndex((task) => task.id === updatedTask.id);
+    if (index !== -1) {
+      state.tasks.splice(index, 1, updatedTask);
+    }
+  },
+  setEditedTaskId: (state, id) => (state.editedTaskId = id),
+  clearEditedTaskId: (state) => (state.editedTaskId = null),
 };
 
 export default {

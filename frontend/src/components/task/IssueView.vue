@@ -9,18 +9,24 @@
       </div>
     </div>
     <div v-for="task in data.tasks" :key="task.id">
-      <SingleTask :task="task" />
+      <SingleTaskEdited :task="task" v-if="editedTaskId === task.id" />
+      <SingleTask :task="task" v-else />
     </div>
   </div>
 </template>
 
 <script>
 import SingleTask from "@/components/task/SingleTask";
+import SingleTaskEdited from "@/components/task/SingleTaskEdited";
 import { totalDurationForPeriod } from "@/service/utils";
+import { mapGetters } from "vuex";
 
 export default {
-  components: { SingleTask },
+  components: { SingleTask, SingleTaskEdited },
   props: { data: Object },
+  computed: {
+    ...mapGetters(["editedTaskId"]),
+  },
   methods: {
     totalForPeriod: totalDurationForPeriod,
   },
@@ -33,7 +39,7 @@ export default {
 }
 
 .issue-name {
-  flex: 6
+  flex: 6;
 }
 
 .total-for-issue {

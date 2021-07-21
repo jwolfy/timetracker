@@ -24,7 +24,6 @@ const actions = {
     commit("setTimer", response.data.timer);
 
     if (response.data.timer.is_running && getters.timerInterval == null) {
-      console.log("should start timer");
       commit("stopCounter");
       commit("startCounter");
     }

@@ -1,8 +1,19 @@
 <template>
   <div>
-    {{ timer.task }}
-    <br />
-    {{ formatTimer }}
+    <div class="task-comment" v-if="timer.task">
+      {{ timer.task.comment }}
+    </div>
+    <div class="time" v-if="timer.is_running">
+      {{ formatTimer }}
+      <br />
+      <b-button
+        size="rounded"
+        type="is-danger is-light"
+        icon-right="stop"
+        @click="stopTimer"
+      >
+      </b-button>
+    </div>
   </div>
 </template>
 
@@ -18,7 +29,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchTimer"]),
+    ...mapActions(["fetchTimer", "stopTimer"]),
   },
   computed: {
     ...mapGetters(["timer"]),

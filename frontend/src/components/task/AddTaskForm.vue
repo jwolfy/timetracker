@@ -16,9 +16,15 @@
       :data="filteredIssues"
       field="issue_id"
       :custom-formatter="(issue) => `${issue.issue_id} - ${issue.subject}`"
-      @select="(option) => (selectedIssueId = option != null ? option.issue_id : null)"
+      @select="
+        (option) => (selectedIssueId = option != null ? option.issue_id : null)
+      "
     ></b-autocomplete>
-    <b-input placeholder="Comment" v-model="comment"></b-input>
+    <b-input
+      @keyup.native.enter="createTask"
+      placeholder="Comment"
+      v-model="comment"
+    ></b-input>
     <b-button type="is-success" @click="createTask">Add</b-button>
   </b-field>
 </template>
@@ -42,6 +48,9 @@ export default {
     ...mapActions(["fetchIssues", "addTask"]),
     toDate: toDate,
     createTask() {
+      if (this.comment === "") {
+        return;
+      }
       this.addTask({
         issue_id: this.selectedIssueId,
         spent_on: this.toDate(moment(this.spent_on)),

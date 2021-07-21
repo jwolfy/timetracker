@@ -53,8 +53,6 @@ export default {
   methods: {
     ...mapActions(["deleteTask", "cancelEditTask", "updateTask"]),
     saveTask() {
-      console.log(this.id);
-      console.log(this.comment);
       this.updateTask(
         Object.assign({}, this.editedTask, { comment: this.comment })
       );

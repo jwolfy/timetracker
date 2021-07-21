@@ -44,4 +44,21 @@ const toDate = (date) => {
   return date.format("YYYY-MM-DD");
 };
 
-export { totalDurationForPeriod, secondsToHours, toDate };
+const formatTime = (sec) => {
+  let hours = Math.floor(sec / 3600)
+    .toString()
+    .padStart(2, "0");
+  let minutes = Math.floor((sec - hours * 3600) / 60)
+    .toString()
+    .padStart(2, "0");
+  let seconds = sec - (hours * 3600 + minutes * 60).toString().padStart(2, "0");
+
+  return `${hours} : ${minutes} : ${seconds}`;
+};
+
+export {
+  totalDurationForPeriod,
+  secondsToHours,
+  toDate,
+  formatTime,
+};

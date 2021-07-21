@@ -88,7 +88,7 @@ def update_task(current_user, task_id):
     task.duration = data.get('duration')
     db.session.commit()
 
-    return jsonify({'message': 'The task has been updated'}), HTTPStatus.OK
+    return jsonify({'message': 'The task has been updated', 'task': task.as_dict()}), HTTPStatus.OK
 
 
 @api.route('/tasks/<task_id>', methods=['DELETE'])

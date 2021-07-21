@@ -80,11 +80,9 @@ def test_task_gets_updated(client, token):
     task_id = created_task['id']
 
     update_response = client.put(f'{TASKS_ENDPOINT}/{task_id}', headers=_auth_headers(token), json=TASK_2)
-    get_response = client.get(f'{TASKS_ENDPOINT}/{task_id}', headers=_auth_headers(token))
-    updated_task = get_response.get_json()['task']
+    updated_task = update_response.get_json()['task']
 
     assert update_response.status_code == HTTPStatus.OK
-    assert get_response.status_code == HTTPStatus.OK
     assert updated_task['id'] == task_id
     assert updated_task['issue_id'] == TASK_2['issue_id']
     assert updated_task['comment'] == TASK_2['comment']

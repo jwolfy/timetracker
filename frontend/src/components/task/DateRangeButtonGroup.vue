@@ -15,7 +15,7 @@
 
 <script>
 import moment from "moment";
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import { toDate } from "@/service/utils";
 
 export default {
@@ -79,9 +79,6 @@ export default {
   methods: {
     ...mapActions(["fetchTasks"]),
     toDate: toDate,
-  },
-  computed: {
-    ...mapGetters(["tasksForRange"]),
   },
 };
 </script>

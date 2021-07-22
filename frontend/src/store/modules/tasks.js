@@ -6,7 +6,6 @@ const state = {
 };
 
 const getters = {
-  tasksForRange: (state) => state.tasks,
   groupedTasks: (state, getters, rootState) => {
     const tasks = state.tasks.reduce((existingData, task) => {
       const spent_on = task["spent_on"];
@@ -58,6 +57,10 @@ const actions = {
   },
   async updateTask({ commit }, task) {
     const response = await axios.put(`http://localhost:5000/api/tasks/${task.id}`, task);
+    commit("updateTask", response.data.task);
+  },
+  async getTask({ commit }, id) {
+    const response = await axios.get(`http://localhost:5000/api/tasks/${id}`)
     commit("updateTask", response.data.task);
   },
   editTask({ commit }, id) {

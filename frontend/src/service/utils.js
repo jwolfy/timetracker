@@ -53,12 +53,15 @@ const formatTime = (sec) => {
     .padStart(2, "0");
   let seconds = sec - (hours * 3600 + minutes * 60).toString().padStart(2, "0");
 
-  return `${hours} : ${minutes} : ${seconds}`;
+  var time = "";
+
+  if (hours !== '00') {
+    time += `${hours} : `;
+  }
+
+  time += `${minutes} : ${seconds}`;
+
+  return time;
 };
 
-export {
-  totalDurationForPeriod,
-  secondsToHours,
-  toDate,
-  formatTime,
-};
+export { totalDurationForPeriod, secondsToHours, toDate, formatTime };

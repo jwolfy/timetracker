@@ -36,10 +36,12 @@ const actions = {
     commit("stopCounter");
     commit("startCounter");
   },
-  async stopTimer({ commit }) {
+  async stopTimer({ commit, getters, dispatch }) {
+    const taskId = getters.timer.task_id;
     const response = await axios.delete("http://localhost:5000/api/timer");
     commit("setTimer", response.data.timer);
     commit("stopCounter");
+    dispatch("getTask", taskId);
   },
 };
 

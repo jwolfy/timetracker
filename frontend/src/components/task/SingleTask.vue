@@ -11,6 +11,9 @@
     <div class="task-comment">
       {{ task.comment }}
     </div>
+    <div class="task-duration-formatted has-text-grey-light">
+      {{ formatSecondsToTime(task.duration, task.id) }}
+    </div>
     <div class="task-duration">
       {{ secondsToHours(task.duration) }}
     </div>
@@ -34,13 +37,13 @@
 </template>
 
 <script>
-import { secondsToHours } from "@/service/utils";
+import { secondsToHours, formatTime } from "@/service/utils";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   props: { task: Object },
   computed: {
-    ...mapGetters(["isTimerRunningForTask", "editedTaskId"]),
+    ...mapGetters(["isTimerRunningForTask", "editedTaskId", "timer"]),
   },
   methods: {
     ...mapActions(["startTimer", "stopTimer", "editTask"]),
@@ -50,6 +53,12 @@ export default {
     },
     editTaskById(id) {
       this.editTask(id);
+    },
+    formatSecondsToTime(seconds, taskId) {
+      if (this.isTimerRunningForTask(taskId)) {
+        seconds += this.timer.elapsed;
+      }
+      return formatTime(seconds);
     },
   },
 };
@@ -68,6 +77,10 @@ export default {
 
 .task-comment {
   flex: 15;
+}
+
+.task-duration-formatted {
+  flex: 2;
 }
 
 .task-duration {

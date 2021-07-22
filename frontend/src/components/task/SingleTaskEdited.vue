@@ -25,6 +25,12 @@
         v-model="comment"
       ></b-input>
     </div>
+    <div class="task-duration-formatted">
+      {{ formatSecondsToTime(editedTask.duration) }}
+    </div>
+    <div class="task-duration">
+      {{ secondsToHours(editedTask.duration) }}
+    </div>
     <div class="task-delete-button">
       <b-button
         size="is-small is-text"
@@ -39,6 +45,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { formatTime, secondsToHours } from "@/service/utils";
 
 export default {
   data() {
@@ -58,6 +65,8 @@ export default {
       );
       this.cancelEditTask();
     },
+    formatSecondsToTime: formatTime,
+    secondsToHours: secondsToHours,
   },
   created() {
     this.id = this.editedTask.id;
@@ -82,6 +91,14 @@ export default {
 
 .task-comment {
   flex: 15;
+}
+
+.task-duration-formatted {
+  flex: 2;
+}
+
+.task-duration {
+  flex: 1;
 }
 
 .task-delete-button {

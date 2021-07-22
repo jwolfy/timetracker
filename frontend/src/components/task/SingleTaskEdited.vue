@@ -28,8 +28,9 @@
     <div class="task-duration-formatted">
       {{ formatSecondsToTime(editedTask.duration) }}
     </div>
-    <div class="task-duration">
-      {{ secondsToHours(editedTask.duration) }}
+    <div class="task-duration-input">
+      <b-input v-model="durationHours" type="number" size="is-small" step="0.1">
+      </b-input>
     </div>
     <div class="task-delete-button">
       <b-button
@@ -50,8 +51,9 @@ import { formatTime, secondsToHours } from "@/service/utils";
 export default {
   data() {
     return {
-      comment: "",
       id: null,
+      comment: "",
+      durationHours: 0,
     };
   },
   computed: {
@@ -60,8 +62,12 @@ export default {
   methods: {
     ...mapActions(["deleteTask", "cancelEditTask", "updateTask"]),
     saveTask() {
+      const seconds = parseInt(this.durationHours * 3600);
       this.updateTask(
-        Object.assign({}, this.editedTask, { comment: this.comment })
+        Object.assign({}, this.editedTask, {
+          comment: this.comment,
+          duration: seconds,
+        })
       );
       this.cancelEditTask();
     },
@@ -71,6 +77,7 @@ export default {
   created() {
     this.id = this.editedTask.id;
     this.comment = this.editedTask.comment;
+    this.durationHours = this.secondsToHours(this.editedTask.duration);
   },
 };
 </script>
@@ -97,8 +104,8 @@ export default {
   flex: 2;
 }
 
-.task-duration {
-  flex: 1;
+.task-duration-input {
+  flex: 2;
 }
 
 .task-delete-button {

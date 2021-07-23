@@ -13,7 +13,7 @@
     <b-dropdown can-close append-to-body trap-focus position="is-bottom-left">
       <template #trigger>
         <b-button type="is-ghost">
-          Custom range
+          Custom dates
         </b-button>
       </template>
       <b-dropdown-item custom paddingless>

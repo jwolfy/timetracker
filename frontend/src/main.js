@@ -23,6 +23,7 @@ import {
   faExclamationCircle,
   faSave,
   faWindowClose,
+  faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Font Awesome icons
@@ -40,6 +41,7 @@ library.add(
   faExclamationCircle,
   faSave,
   faWindowClose,
+  faArrowUp,
 );
 
 Vue.config.productionTip = false;

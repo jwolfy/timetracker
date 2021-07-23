@@ -4,7 +4,6 @@
       placeholder="Date"
       v-model="spent_on"
       icon="calendar-alt"
-      editable
       :date-formatter="(date) => toDate(date)"
     ></b-datepicker>
     <b-autocomplete

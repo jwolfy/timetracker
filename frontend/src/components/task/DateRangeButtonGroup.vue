@@ -10,6 +10,16 @@
     >
       {{ range.name }}
     </b-button>
+    <b-button type="is-ghost" @click="$refs.rangeDatepicker.toggle()">
+      Custom range
+    </b-button>
+    <b-datepicker
+      ref="rangeDatepicker"
+      expanded
+      range
+      v-model="dates"
+      :range-end="handleDateRange()"
+    ></b-datepicker>
   </div>
 </template>
 
@@ -68,17 +78,20 @@ export default {
               .subtract(1, "days")
           ),
         },
-        {
-          name: "Custom range",
-          startDate: this.toDate(moment().subtract(1, "days")),
-          endDate: this.toDate(moment().subtract(1, "days")),
-        },
       ],
+      dates: [],
     };
   },
   methods: {
     ...mapActions(["fetchTasks"]),
     toDate: toDate,
+    handleDateRange() {
+      this.fetchTasks({
+        startDate: this.toDate(moment(this.dates[0])),
+        endDate: this.toDate(moment(this.dates[1])),
+      });
+      this.dates = [];
+    },
   },
 };
 </script>

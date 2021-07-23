@@ -1,5 +1,15 @@
 <template>
-    <div>
-      <h1>Issues</h1>
-    </div>
+  <div>
+    <IssuesTable />
+  </div>
 </template>
+
+<script>
+import IssuesTable from "@/components/issue/IssuesTable";
+
+export default {
+  components: {
+    IssuesTable,
+  },
+};
+</script>

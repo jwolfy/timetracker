@@ -16,6 +16,7 @@
       numeric
       v-slot="props"
       searchable
+      :custom-search="searchByIssueId"
     >
       {{ props.row.issue_id }}
     </b-table-column>
@@ -40,6 +41,9 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   methods: {
     ...mapActions(["fetchIssues"]),
+    searchByIssueId(row, input) {
+      return row.issue_id.toString().indexOf(input) >= 0;
+    },
   },
   computed: {
     ...mapGetters(["allIssues"]),

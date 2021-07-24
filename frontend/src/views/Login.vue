@@ -10,6 +10,7 @@
             type="password"
             placeholder="Password"
             v-model="password"
+            @keyup.native.enter="login"
           ></b-input>
         </b-field>
         <div class="field is-grouped is-grouped-centered">

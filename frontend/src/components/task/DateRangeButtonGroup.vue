@@ -102,6 +102,9 @@ export default {
       this.dates = [];
     },
   },
+  created() {
+    this.fetchTasks({startDate: this.toDate(moment()), endDate: this.toDate(moment())});
+  }
 };
 </script>
 

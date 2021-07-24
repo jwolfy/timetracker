@@ -1,44 +1,19 @@
 <template>
-  <b-table
-    :data="allIssues"
-    striped
-    narrowed
-    paginated
-    pagination-size="is-small"
-    pagination-position="both"
-    per-page="50"
-  >
-    <b-table-column
-      field="issue_id"
-      label="ID"
-      width="100"
-      sortable
-      numeric
-      v-slot="props"
-      searchable
-      :custom-search="searchByIssueId"
-    >
-      {{ props.row.issue_id }}
-    </b-table-column>
-    <b-table-column
-      field="subject"
-      label="Subject"
-      sortable
-      searchable
-      v-slot="props"
-    >
-      {{ props.row.subject }}
-    </b-table-column>
-    <b-table-column field="is_active" label="Is active" sortable v-slot="props">
-      <b-checkbox v-model="props.row.is_active" disabled> </b-checkbox>
-    </b-table-column>
-  </b-table>
+  <div class="card mb-1 p-1">
+    <div v-for="issue in allIssues" :key="issue.issue_id">
+      <SingleIssueEdited :issue="issue" v-if="editedIssueId === issue.issue_id" />
+      <SingleIssue :issue="issue" v-else/>
+    </div>
+  </div>
 </template>
 
 <script>
+import SingleIssue from "@/components/issue/SingleIssue";
+import SingleIssueEdited from "@/components/issue/SingleIssueEdited";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  components: { SingleIssue, SingleIssueEdited },
   methods: {
     ...mapActions(["fetchIssues"]),
     searchByIssueId(row, input) {
@@ -46,7 +21,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["allIssues"]),
+    ...mapGetters(["allIssues", "editedIssueId"]),
   },
   created() {
     this.fetchIssues();

@@ -96,11 +96,9 @@ def test_issue_gets_updated(client, token):
 
     update_response = client.put(
         f"{ISSUES_ENDPOINT}/{ISSUE_1['issue_id']}", headers=_auth_headers(token), json=ISSUE_2)
-    get_response = client.get(f"{ISSUES_ENDPOINT}/{ISSUE_1['issue_id']}", headers=_auth_headers(token))
-    updated_issue = get_response.get_json()['issue']
+    updated_issue = update_response.get_json()['issue']
 
     assert update_response.status_code == HTTPStatus.OK
-    assert get_response.status_code == HTTPStatus.OK
     assert updated_issue['issue_id'] == ISSUE_1['issue_id']     # issue_id cannot be updated
     assert updated_issue['subject'] == ISSUE_2['subject']
     assert updated_issue['is_active'] == ISSUE_2['is_active']

@@ -11,14 +11,6 @@ from app.api.routes.users import login_required
 logger = logging.getLogger(__name__)
 
 
-def _issue_to_dict(issue: Issue) -> dict:
-    return {
-        'issue_id': issue.issue_id,
-        'subject': issue.subject,
-        'is_active': issue.is_active,
-    }
-
-
 @api.route('/issues', methods=['GET'])
 @login_required
 def get_all_issues(current_user):
@@ -27,7 +19,7 @@ def get_all_issues(current_user):
     output = []
 
     for issue in issues:
-        output.append(_issue_to_dict(issue))
+        output.append(issue.as_dict())
 
     return jsonify({'issues': output}), HTTPStatus.OK
 
@@ -40,7 +32,7 @@ def get_issue(current_user, issue_id):
     if not issue:
         return jsonify({'message': 'No issue found'}), HTTPStatus.NOT_FOUND
 
-    return jsonify({'issue': _issue_to_dict(issue)}), HTTPStatus.OK
+    return jsonify({'issue': issue.as_dict()}), HTTPStatus.OK
 
 
 @api.route('/issues', methods=['POST'])
@@ -63,7 +55,7 @@ def create_issue(current_user):
 
     return jsonify({
         'message': 'Issue created',
-        'issue': _issue_to_dict(issue),
+        'issue': issue.as_dict(),
     }), HTTPStatus.CREATED
 
 
@@ -81,7 +73,7 @@ def update_issue(current_user, issue_id):
     issue.is_active = data.get('is_active')
     db.session.commit()
 
-    return jsonify({'message': 'The issue has been updated'}), HTTPStatus.OK
+    return jsonify({'message': 'The issue has been updated', 'issue': issue.as_dict()}), HTTPStatus.OK
 
 
 @api.route('/issues/<issue_id>', methods=['DELETE'])

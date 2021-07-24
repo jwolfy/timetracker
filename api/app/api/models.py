@@ -34,6 +34,12 @@ class Issue(db.Model):
     def get(cls, current_user, issue_id):
         return cls.query.filter_by(user_id=current_user.id, issue_id=issue_id).first()
 
+    def as_dict(self) -> dict:
+        return {
+            'issue_id': self.issue_id,
+            'subject': self.subject,
+            'is_active': self.is_active,
+        }
 
 class Task(db.Model):
     __tablename__ = 'task'

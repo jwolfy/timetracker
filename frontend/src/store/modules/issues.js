@@ -6,7 +6,7 @@ const state = {
 };
 
 const getters = {
-  allIssues: (state) => state.issues,
+  allIssues: (state) => state.issues.sort((a, b) => a.issue_id > b.issue_id ? 1 : -1),
   editedIssueId: (state) => state.editedIssueId,
   editedIssue: (state, getters) =>
     state.issues.filter((issue) => issue.issue_id === getters.editedIssueId)[0],
@@ -16,6 +16,10 @@ const actions = {
   async fetchIssues({ commit }) {
     const response = await axios.get("http://localhost:5000/api/issues");
     commit("setIssues", response.data.issues);
+  },
+  async addIssue({ commit }, issue) {
+    const response = await axios.post("http://localhost:5000/api/issues", issue);
+    commit("newIssue", response.data.issue);
   },
   async deleteIssue({ commit }, id) {
     await axios.delete(`http://localhost:5000/api/issues/${id}`);
@@ -38,6 +42,7 @@ const actions = {
 
 const mutations = {
   setIssues: (state, issues) => (state.issues = issues),
+  newIssue: (state, issue) => state.issues.push(issue),
   removeIssue: (state, id) =>
     (state.issues = state.issues.filter((issue) => issue.issue_id !== id)),
   updateIssue: (state, updatedIssue) => {

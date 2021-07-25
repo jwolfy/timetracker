@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+
+  frontend:
+    image: timetracker/frontend
+    container_name: timetracker_frontend
+    build:
+      context: ./frontend
+    depends_on:
+      - api
+    ports:
+      - 3000:80
+
+  api:
+    image: timetracker/api
+    container_name: timetracker_api
+    build:
+      context: ./api
+    environment:
+      - APP_NAME=Timetracker
+    volumes:
+      - ./api/timetracker.db:/app/timetracker.db

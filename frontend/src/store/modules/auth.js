@@ -16,7 +16,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit("auth_request");
       axios({
-        url: "http://localhost:5000/api/login",
+        url: "http://api:5000/api/login",
         method: "GET",
         headers: {
           Authorization:

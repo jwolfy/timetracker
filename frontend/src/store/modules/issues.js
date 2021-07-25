@@ -14,22 +14,19 @@ const getters = {
 
 const actions = {
   async fetchIssues({ commit }) {
-    const response = await axios.get("http://api:5000/api/issues");
+    const response = await axios.get("issues");
     commit("setIssues", response.data.issues);
   },
   async addIssue({ commit }, issue) {
-    const response = await axios.post("http://api:5000/api/issues", issue);
+    const response = await axios.post("issues", issue);
     commit("newIssue", response.data.issue);
   },
   async deleteIssue({ commit }, id) {
-    await axios.delete(`http://api:5000/api/issues/${id}`);
+    await axios.delete(`issues/${id}`);
     commit("removeIssue", id);
   },
   async updateIssue({ commit }, issue) {
-    const response = await axios.put(
-      `http://api:5000/api/issues/${issue.issue_id}`,
-      issue
-    );
+    const response = await axios.put(`issues/${issue.issue_id}`, issue);
     commit("updateIssue", response.data.issue);
   },
   editIssue({ commit }, id) {

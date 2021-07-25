@@ -20,7 +20,7 @@ const getters = {
 
 const actions = {
   async fetchTimer({ commit, getters }) {
-    const response = await axios.get("http://api:5000/api/timer");
+    const response = await axios.get("timer");
     commit("setTimer", response.data.timer);
 
     if (response.data.timer.is_running && getters.timerInterval == null) {
@@ -29,7 +29,7 @@ const actions = {
     }
   },
   async startTimer({ commit }, taskId) {
-    const response = await axios.post("http://api:5000/api/timer", {
+    const response = await axios.post("timer", {
       task_id: taskId,
     });
     commit("setTimer", response.data.timer);
@@ -38,7 +38,7 @@ const actions = {
   },
   async stopTimer({ commit, getters, dispatch }) {
     const taskId = getters.timer.task_id;
-    const response = await axios.delete("http://api:5000/api/timer");
+    const response = await axios.delete("timer");
     commit("setTimer", response.data.timer);
     commit("stopCounter");
     dispatch("getTask", taskId);

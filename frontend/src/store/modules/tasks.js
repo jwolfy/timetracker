@@ -42,25 +42,25 @@ const getters = {
 
 const actions = {
   async fetchTasks({ commit }, { startDate, endDate }) {
-    const response = await axios.get("http://api:5000/api/tasks", {
+    const response = await axios.get("tasks", {
       params: { start_date: startDate, end_date: endDate },
     });
     commit("setTasks", response.data.tasks);
   },
   async addTask({ commit }, task) {
-    const response = await axios.post("http://api:5000/api/tasks", task);
+    const response = await axios.post("tasks", task);
     commit("newTask", response.data.task);
   },
   async deleteTask({ commit }, id) {
-    await axios.delete(`http://api:5000/api/tasks/${id}`);
+    await axios.delete(`tasks/${id}`);
     commit("removeTask", id);
   },
   async updateTask({ commit }, task) {
-    const response = await axios.put(`http://api:5000/api/tasks/${task.id}`, task);
+    const response = await axios.put(`tasks/${task.id}`, task);
     commit("updateTask", response.data.task);
   },
   async getTask({ commit }, id) {
-    const response = await axios.get(`http://api:5000/api/tasks/${id}`)
+    const response = await axios.get(`tasks/${id}`)
     commit("updateTask", response.data.task);
   },
   editTask({ commit }, id) {

@@ -17,7 +17,7 @@ services:
     container_name: timetracker_api
     build:
       context: ./api
-    environment:
-      - APP_NAME=Timetracker
+    env_file:
+      - .env
     volumes:
       - ./api/timetracker.db:/app/timetracker.db

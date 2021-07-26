@@ -1,6 +1,6 @@
 FROM node:16.5-alpine3.11 as build-stage
 WORKDIR /app
-COPY ./package.json yarn.lock babel.config.js ./
+COPY ./package.json ./yarn.lock ./babel.config.js ./
 COPY ./src ./src
 COPY ./public ./public
 RUN yarn install

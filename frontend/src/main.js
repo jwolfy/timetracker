@@ -53,7 +53,7 @@ Vue.use(Buefy, {
 
 // axios
 Vue.prototype.$http = Axios;
-Vue.prototype.$http.defaults.baseURL = 'http://localhost/api/'
+Vue.prototype.$http.defaults.baseURL = '/api'
 const token = localStorage.getItem("token");
 if (token) {
   Vue.prototype.$http.defaults.headers.common["X-Access-Token"] = token;

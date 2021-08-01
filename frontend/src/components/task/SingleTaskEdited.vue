@@ -31,8 +31,25 @@
         v-model="spentOn"
         icon="calendar-alt"
         :date-formatter="(date) => dateToString(date)"
-        size=is-small
+        size="is-small"
       ></b-datepicker>
+    </div>
+    <div class="task-issue-id">
+      <b-autocomplete
+        icon="search"
+        size="is-small"
+        v-model="issueName"
+        placeholder="Issue"
+        open-on-focus
+        :keep-first="true"
+        :clearable="true"
+        :data="filteredIssues"
+        field="issue_id"
+        :custom-formatter="(issue) => `${issue.issue_id} - ${issue.subject}`"
+        @select="
+          (option) => (issueId = option != null ? option.issue_id : null)
+        "
+      ></b-autocomplete>
     </div>
     <div class="task-duration-formatted">
       {{ formatSecondsToTime(editedTask.duration) }}
@@ -66,13 +83,23 @@ export default {
   data() {
     return {
       id: null,
+      issueId: null,
       comment: "",
       spentOn: null,
       durationHours: 0,
+      issueName: "",
     };
   },
   computed: {
-    ...mapGetters(["editedTask"]),
+    ...mapGetters(["editedTask", "allIssues", "issueById"]),
+    filteredIssues() {
+      return this.allIssues.filter((issue) => {
+        return (
+          issue.issue_id.toString().indexOf(this.issueName) >= 0 ||
+          issue.subject.toLowerCase().indexOf(this.issueName.toLowerCase()) >= 0
+        );
+      });
+    },
   },
   methods: {
     ...mapActions(["deleteTask", "cancelEditTask", "updateTask"]),
@@ -80,6 +107,7 @@ export default {
       const seconds = parseInt(this.durationHours * 3600);
       this.updateTask(
         Object.assign({}, this.editedTask, {
+          issue_id: this.issueId,
           comment: this.comment,
           spent_on: this.dateToString(this.spentOn),
           duration: seconds,
@@ -94,9 +122,13 @@ export default {
   },
   created() {
     this.id = this.editedTask.id;
+    this.issueId = this.editedTask.issue_id;
     this.comment = this.editedTask.comment;
     this.spentOn = this.stringToDate(this.editedTask.spent_on);
     this.durationHours = this.secondsToHours(this.editedTask.duration);
+
+    const issue = this.issueById(this.editedTask.issue_id);
+    this.issueName = `${issue.issue_id} - ${issue.subject}`;
   },
 };
 </script>
@@ -116,11 +148,15 @@ export default {
 }
 
 .task-comment {
-  flex: 15;
+  flex: 10;
 }
 
 .task-spent-on {
-  flex: 3;
+  flex: 4;
+}
+
+.task-issue-id {
+  flex: 9;
 }
 
 .task-duration-formatted {

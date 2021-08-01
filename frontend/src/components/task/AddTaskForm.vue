@@ -4,7 +4,7 @@
       placeholder="Date"
       v-model="spent_on"
       icon="calendar-alt"
-      :date-formatter="(date) => toDate(date)"
+      :date-formatter="(date) => dateToString(date)"
     ></b-datepicker>
     <b-autocomplete
       icon="search"
@@ -29,9 +29,8 @@
 </template>
 
 <script>
-import moment from "moment";
 import { mapGetters, mapActions } from "vuex";
-import { toDate } from "@/service/utils";
+import { dateToString } from "@/service/utils";
 
 export default {
   name: "AddTaskForm",
@@ -45,14 +44,14 @@ export default {
   },
   methods: {
     ...mapActions(["fetchIssues", "addTask"]),
-    toDate: toDate,
+    dateToString: dateToString,
     createTask() {
       if (this.comment === "") {
         return;
       }
       this.addTask({
         issue_id: this.selectedIssueId,
-        spent_on: this.toDate(moment(this.spent_on)),
+        spent_on: this.dateToString(this.spent_on),
         comment: this.comment,
       });
       this.comment = "";

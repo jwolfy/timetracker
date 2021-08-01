@@ -26,7 +26,7 @@
 <script>
 import moment from "moment";
 import { mapActions } from "vuex";
-import { toDate } from "@/service/utils";
+import { dateToString } from "@/service/utils";
 
 export default {
   data() {
@@ -34,27 +34,27 @@ export default {
       dateRanges: [
         {
           name: "Today",
-          startDate: this.toDate(moment()),
-          endDate: this.toDate(moment()),
+          startDate: this.dateToString(moment()),
+          endDate: this.dateToString(moment()),
         },
         {
           name: "Yesterday",
-          startDate: this.toDate(moment().subtract(1, "days")),
-          endDate: this.toDate(moment().subtract(1, "days")),
+          startDate: this.dateToString(moment().subtract(1, "days")),
+          endDate: this.dateToString(moment().subtract(1, "days")),
         },
         {
           name: "This week",
-          startDate: this.toDate(moment().startOf("isoWeek")),
-          endDate: this.toDate(moment()),
+          startDate: this.dateToString(moment().startOf("isoWeek")),
+          endDate: this.dateToString(moment()),
         },
         {
           name: "Last week",
-          startDate: this.toDate(
+          startDate: this.dateToString(
             moment()
               .startOf("isoWeek")
               .subtract(7, "days")
           ),
-          endDate: this.toDate(
+          endDate: this.dateToString(
             moment()
               .startOf("isoWeek")
               .subtract(1, "days")
@@ -62,17 +62,17 @@ export default {
         },
         {
           name: "This month",
-          startDate: this.toDate(moment().startOf("month")),
-          endDate: this.toDate(moment()),
+          startDate: this.dateToString(moment().startOf("month")),
+          endDate: this.dateToString(moment()),
         },
         {
           name: "Last month",
-          startDate: this.toDate(
+          startDate: this.dateToString(
             moment()
               .startOf("month")
               .subtract(1, "month")
           ),
-          endDate: this.toDate(
+          endDate: this.dateToString(
             moment()
               .startOf("month")
               .subtract(1, "days")
@@ -84,11 +84,11 @@ export default {
   },
   methods: {
     ...mapActions(["fetchTasks"]),
-    toDate: toDate,
+    dateToString: dateToString,
     handleDateRange() {
       this.fetchTasks({
-        startDate: this.toDate(moment(this.dates[0])),
-        endDate: this.toDate(moment(this.dates[1])),
+        startDate: this.dateToString(moment(this.dates[0])),
+        endDate: this.dateToString(moment(this.dates[1])),
       });
       this.dates = [];
     },
@@ -96,14 +96,14 @@ export default {
   watch: {
     customDates: function() {
       this.fetchTasks({
-        startDate: this.toDate(moment(this.customDates[0])),
-        endDate: this.toDate(moment(this.customDates[1])),
+        startDate: this.dateToString(moment(this.customDates[0])),
+        endDate: this.dateToString(moment(this.customDates[1])),
       });
       this.dates = [];
     },
   },
   created() {
-    this.fetchTasks({startDate: this.toDate(moment()), endDate: this.toDate(moment())});
+    this.fetchTasks({startDate: this.dateToString(moment()), endDate: this.dateToString(moment())});
   }
 };
 </script>

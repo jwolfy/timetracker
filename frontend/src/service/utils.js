@@ -37,11 +37,15 @@ const secondsToHours = (duration) => {
   return Math.round((duration / 3600) * 10) / 10;
 };
 
-const toDate = (date) => {
+const dateToString = (date) => {
   if (date instanceof Date) {
     return moment(date).format("YYYY-MM-DD");
   }
   return date.format("YYYY-MM-DD");
+};
+
+const stringToDate = (str) => {
+  return moment(str, "YYYY-MM-DD").toDate();
 };
 
 const formatTime = (sec) => {
@@ -55,7 +59,7 @@ const formatTime = (sec) => {
 
   var time = "";
 
-  if (hours !== '00') {
+  if (hours !== "00") {
     time += `${hours} : `;
   }
 
@@ -64,4 +68,4 @@ const formatTime = (sec) => {
   return time;
 };
 
-export { totalDurationForPeriod, secondsToHours, toDate, formatTime };
+export { totalDurationForPeriod, secondsToHours, dateToString, formatTime, stringToDate };

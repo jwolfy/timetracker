@@ -25,6 +25,15 @@
         v-model="comment"
       ></b-input>
     </div>
+    <div class="task-spent-on">
+      <b-datepicker
+        placeholder="Date"
+        v-model="spentOn"
+        icon="calendar-alt"
+        :date-formatter="(date) => dateToString(date)"
+        size=is-small
+      ></b-datepicker>
+    </div>
     <div class="task-duration-formatted">
       {{ formatSecondsToTime(editedTask.duration) }}
     </div>
@@ -46,13 +55,19 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { formatTime, secondsToHours } from "@/service/utils";
+import {
+  formatTime,
+  secondsToHours,
+  stringToDate,
+  dateToString,
+} from "@/service/utils";
 
 export default {
   data() {
     return {
       id: null,
       comment: "",
+      spentOn: null,
       durationHours: 0,
     };
   },
@@ -66,6 +81,7 @@ export default {
       this.updateTask(
         Object.assign({}, this.editedTask, {
           comment: this.comment,
+          spent_on: this.dateToString(this.spentOn),
           duration: seconds,
         })
       );
@@ -73,10 +89,13 @@ export default {
     },
     formatSecondsToTime: formatTime,
     secondsToHours: secondsToHours,
+    dateToString: dateToString,
+    stringToDate: stringToDate,
   },
   created() {
     this.id = this.editedTask.id;
     this.comment = this.editedTask.comment;
+    this.spentOn = this.stringToDate(this.editedTask.spent_on);
     this.durationHours = this.secondsToHours(this.editedTask.duration);
   },
 };
@@ -100,8 +119,12 @@ export default {
   flex: 15;
 }
 
+.task-spent-on {
+  flex: 3;
+}
+
 .task-duration-formatted {
-  flex: 2;
+  flex: 3;
 }
 
 .task-duration-input {

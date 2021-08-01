@@ -1,4 +1,5 @@
 import moment from "moment";
+import { ToastProgrammatic as Toast } from "buefy";
 
 const totalDurationForPeriod = (data) => {
   if ("tasks" in data) {
@@ -68,4 +69,20 @@ const formatTime = (sec) => {
   return time;
 };
 
-export { totalDurationForPeriod, secondsToHours, dateToString, formatTime, stringToDate };
+const toast = (text, type = "is-success") => {
+  type = type === "error" ? "is-danger" : "is-success";
+  Toast.open({
+    message: text,
+    type: type,
+    position: "is-bottom-right",
+  });
+};
+
+export {
+  totalDurationForPeriod,
+  secondsToHours,
+  dateToString,
+  formatTime,
+  stringToDate,
+  toast,
+};

@@ -41,7 +41,7 @@ library.add(
   faExclamationCircle,
   faSave,
   faWindowClose,
-  faArrowUp,
+  faArrowUp
 );
 
 Vue.config.productionTip = false;
@@ -53,7 +53,7 @@ Vue.use(Buefy, {
 
 // axios
 Vue.prototype.$http = Axios;
-Vue.prototype.$http.defaults.baseURL = '/api'
+Vue.prototype.$http.defaults.baseURL = process.env.VUE_APP_BASE_API_URL || '/api';
 const token = localStorage.getItem("token");
 if (token) {
   Vue.prototype.$http.defaults.headers.common["X-Access-Token"] = token;

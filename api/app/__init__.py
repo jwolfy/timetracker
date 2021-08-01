@@ -4,6 +4,7 @@ from flask import Flask
 from app.api.models import db
 from app.api import api
 from config import Config
+from flask_cors import CORS
 
 
 logging.basicConfig(level=Config.LOG_LEVEL)
@@ -12,6 +13,8 @@ logging.basicConfig(level=Config.LOG_LEVEL)
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    CORS(app)
+
     app.app_context().push()
     db.init_app(app)
     db.create_all()

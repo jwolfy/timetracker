@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="task-comment" v-if="timer.task">
+  <div class="card p-2 ml-3" v-if="timer.is_running">
+    <div class="task-comment has-text-weight-semibold" v-if="timer.task">
       {{ timer.task.comment }}
     </div>
     <div class="time" v-if="timer.is_running">
@@ -8,7 +8,7 @@
       <br />
       <b-button
         size="rounded"
-        type="is-danger is-light"
+        type="is-danger"
         icon-right="stop"
         @click="stopTimer"
       >

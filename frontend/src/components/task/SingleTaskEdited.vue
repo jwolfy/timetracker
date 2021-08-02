@@ -56,7 +56,13 @@
       {{ formatSecondsToTime(editedTask.duration) }}
     </div>
     <div class="task-duration-input">
-      <b-input v-model="durationHours" type="number" size="is-small" step="0.1">
+      <b-input
+        v-model="durationHours"
+        type="number"
+        size="is-small"
+        step="0.1"
+        @keyup.native.enter="saveTask"
+      >
       </b-input>
     </div>
     <div class="task-delete-button">

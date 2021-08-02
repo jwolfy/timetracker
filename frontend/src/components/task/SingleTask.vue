@@ -21,7 +21,7 @@
       <b-button
         v-if="isTimerRunningForTask(task.id)"
         size="is-small is-text rounded"
-        type="is-danger is-light"
+        type="is-danger"
         icon-right="stop"
         @click="stopTimer"
       ></b-button>

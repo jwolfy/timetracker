@@ -21,14 +21,14 @@
       <b-button
         v-if="isTimerRunningForTask(task.id)"
         size="is-small is-text rounded"
-        type="is-danger"
+        type="is-danger is-hovered"
         icon-right="stop"
         @click="stopTimer"
       ></b-button>
       <b-button
         v-else
         size="is-small is-text rounded"
-        type="is-success is-light"
+        type="is-success is-light is-hovered"
         icon-right="play"
         @click="startTask(task.id)"
       ></b-button>

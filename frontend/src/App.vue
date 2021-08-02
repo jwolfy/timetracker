@@ -26,8 +26,11 @@ export default {
 </script>
 
 <style>
+html {
+  height: 100%;
+}
 body {
-  background: hsl(0, 0%, 96%);
-  height: 100vh;
+  background-color: hsl(0, 0%, 96%);
+  min-height: 100%;
 }
 </style>

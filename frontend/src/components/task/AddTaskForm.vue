@@ -25,7 +25,7 @@
       placeholder="Comment"
       v-model="comment"
     ></b-input>
-    <b-button type="is-success" @click="createTask">Add</b-button>
+    <b-button type="is-primary" @click="createTask">Add</b-button>
   </b-field>
 </template>
 

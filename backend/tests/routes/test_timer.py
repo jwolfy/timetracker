@@ -3,7 +3,7 @@ from test_users import _auth_headers
 from test_tasks import _create_task, TASK_1, TASK_2
 
 
-TIMER_ENDPOINT = 'api/timer'
+TIMER_ENDPOINT = '/timer'
 
 
 def test_timer_params_are_initially_not_set(client, issue_token):

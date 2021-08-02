@@ -7,7 +7,7 @@ def test_app_is_created(app):
 
 def test_default_app_config_is_populated():
     app = create_app()
-    assert app.config['SECRET_KEY'] == 'secret'
+    assert app.config['SECRET_KEY'] == 'secretkey'
     assert app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] is False
 
 

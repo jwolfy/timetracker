@@ -3,7 +3,7 @@ from flask import current_app
 from routes.test_users import USER_1, USER_2, _auth_headers, _authorize_user
 
 
-ISSUES_ENDPOINT = 'api/issues'
+ISSUES_ENDPOINT = '/issues'
 
 ISSUE_1 = {'issue_id': 1442, 'subject': 'Users should have fun', 'is_active': True}
 ISSUE_2 = {'issue_id': 1444, 'subject': 'API for the win', 'is_active': False}

@@ -8,16 +8,16 @@ services:
     build:
       context: ./frontend
     depends_on:
-      - api
+      - backend
     ports:
       - 3000:80
 
-  api:
-    image: timetracker/api
-    container_name: timetracker_api
+  backend:
+    image: timetracker/backend
+    container_name: timetracker_backend
     build:
-      context: ./api
+      context: ./backend
     env_file:
       - .env
     volumes:
-      - ./api/timetracker.db:/app/timetracker.db
+      - ./backend/timetracker.db:/app/timetracker.db

@@ -5,8 +5,8 @@ from http import HTTPStatus
 from flask import current_app
 
 
-USERS_ENDPOINT = 'api/users'
-LOGIN_ENDPOINT = 'api/login'
+USERS_ENDPOINT = '/users'
+LOGIN_ENDPOINT = '/login'
 
 USER_1 = {'username': 'admin', 'password': 'verySecurePassword3'}
 USER_2 = {'username': 'boss', 'password': 'verySecurePassword4'}

@@ -4,7 +4,7 @@ from test_users import _auth_headers
 from test_issues import _create_issue, ISSUE_1, ISSUE_2
 
 
-TASKS_ENDPOINT = 'api/tasks'
+TASKS_ENDPOINT = '/tasks'
 
 TASK_1 = {'issue_id': 1442, 'comment': 'Have fun', 'spent_on': '2021-04-01'}
 TASK_2 = {'issue_id': 1444, 'comment': 'Beat about the bush', 'spent_on': '2021-04-02', 'duration': 10}

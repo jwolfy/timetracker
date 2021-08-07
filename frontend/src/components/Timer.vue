@@ -3,7 +3,7 @@
     <div class="task-comment has-text-weight-semibold" v-if="timer.task">
       {{ timer.task.comment }}
     </div>
-    <div class="time" v-if="timer.is_running">
+    <div class="time is-size-4" v-if="timer.is_running">
       {{ formatTimer(timer.elapsed) }}
       <br />
       <b-button

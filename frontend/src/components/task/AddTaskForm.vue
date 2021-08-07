@@ -3,7 +3,7 @@
     <b-datepicker
       placeholder="Date"
       v-model="spent_on"
-      first-day-of-week=1
+      :first-day-of-week=1
       icon="calendar-alt"
       :date-formatter="(date) => dateToString(date)"
     ></b-datepicker>

@@ -12,7 +12,7 @@ const state = {
 
 const getters = {
   timer: (state) => state.timer,
-  isTimerRunning: (state) => state.timer.is_running,
+  timerTaskId: (state) => state.timer.task_id,
   isTimerRunningForTask: (state) => (id) =>
     state.timer.is_running && state.timer.task_id === id,
   timerInterval: (state) => state.timerInterval,
@@ -28,16 +28,20 @@ const actions = {
       commit("startCounter");
     }
   },
-  async startTimer({ commit }, taskId) {
+  async startTimer({ commit, getters, dispatch }, taskId) {
     const response = await axios.post("timer", {
       task_id: taskId,
     });
+    const previousTaskId = getters.timerTaskId;
+    if (previousTaskId != null) {
+      dispatch("getTask", previousTaskId);
+    }
     commit("setTimer", response.data.timer);
     commit("stopCounter");
     commit("startCounter");
   },
   async stopTimer({ commit, getters, dispatch }) {
-    const taskId = getters.timer.task_id;
+    const taskId = getters.timerTaskId;
     const response = await axios.delete("timer");
     commit("setTimer", response.data.timer);
     commit("stopCounter");

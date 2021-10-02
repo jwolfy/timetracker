@@ -1,5 +1,8 @@
 import time
+import json
 
+from dataclasses import dataclass, asdict, fields
+from typing import Optional
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
@@ -40,6 +43,7 @@ class Issue(db.Model):
             'subject': self.subject,
             'is_active': self.is_active,
         }
+
 
 class Task(db.Model):
     __tablename__ = 'task'
@@ -102,3 +106,44 @@ class Timer(db.Model):
         self.is_running = False
         self.task_id = None
         self.started_at = None
+
+
+@dataclass
+class SettingsData:
+    redmine_url: Optional[str] = None
+
+
+def settings_data_from_dict_as_str(data: dict) -> str:
+    settings_data = SettingsData()
+    for field in fields(settings_data):
+        name = field.name
+        if name in data:
+            setattr(settings_data, name, data[name])
+    return json.dumps(asdict(settings_data))
+
+
+class Settings(db.Model):
+    __tablename__ = 'settings'
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    data = db.Column(db.String)
+
+    @classmethod
+    def get(cls, user_id):
+        data = cls.query.filter_by(user_id=user_id).first()
+        if not data:
+            return cls._create_new_and_return(user_id)
+        return data
+
+    @classmethod
+    def _create_new_and_return(cls, user_id):
+        data = asdict(SettingsData())
+        settings = Settings(
+            user_id=user_id,
+            data=json.dumps(data),
+        )
+        db.session.add(settings)
+        db.session.commit()
+        return settings
+
+    def as_dict(self) -> dict:
+        return json.loads(self.data)

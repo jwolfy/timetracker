@@ -53,7 +53,7 @@ export default {
   flex: 1;
 }
 
-a {
-  color: black;
+.issue-name a {
+  color: rgb(70, 70, 70);
 }
 </style>

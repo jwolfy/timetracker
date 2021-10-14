@@ -13,6 +13,7 @@
 <script>
 import MainLayout from "@/layouts/MainLayout";
 import EmptyLayout from "@/layouts/EmptyLayout";
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -21,6 +22,12 @@ export default {
     layout() {
       return (this.$route.meta.layout || "empty") + "-layout";
     },
+  },
+  methods: {
+    ...mapActions(["fetchSettings", "saveSettings"]),
+  },
+  created() {
+    this.fetchSettings();
   },
 };
 </script>

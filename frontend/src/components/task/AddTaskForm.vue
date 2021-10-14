@@ -3,11 +3,12 @@
     <b-datepicker
       placeholder="Date"
       v-model="spent_on"
-      :first-day-of-week=1
+      :first-day-of-week="1"
       icon="calendar-alt"
       :date-formatter="(date) => dateToString(date)"
     ></b-datepicker>
     <b-autocomplete
+      expanded
       icon="search"
       v-model="name"
       placeholder="Issue"
@@ -21,6 +22,7 @@
       "
     ></b-autocomplete>
     <b-input
+      expanded
       @keyup.native.enter="createTask"
       placeholder="Comment"
       v-model="comment"

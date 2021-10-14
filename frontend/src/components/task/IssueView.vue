@@ -2,7 +2,14 @@
   <div class="card mb-1 p-1">
     <div class="issue-name-with-total has-text-weight-semibold mb-1">
       <div class="issue-name">
-        {{ `${data.issue.issue_id} - ${data.issue.subject}` }}
+        <a
+          v-if="redmine_url !== ''"
+          v-bind:href="redmine_url + data.issue.issue_id"
+          target="_blank"
+        >
+          {{ `${data.issue.issue_id} - ${data.issue.subject}` }}
+        </a>
+        <div v-else>{{ `${data.issue.issue_id} - ${data.issue.subject}` }}</div>
       </div>
       <div class="total-for-issue">
         {{ totalForPeriod(data) }}
@@ -25,7 +32,7 @@ export default {
   components: { SingleTask, SingleTaskEdited },
   props: { data: Object },
   computed: {
-    ...mapGetters(["editedTaskId"]),
+    ...mapGetters(["editedTaskId", "redmine_url"]),
   },
   methods: {
     totalForPeriod: totalDurationForPeriod,
@@ -44,5 +51,9 @@ export default {
 
 .total-for-issue {
   flex: 1;
+}
+
+a {
+  color: black;
 }
 </style>

@@ -14,7 +14,7 @@ def test_settings_get_returns_default_values_if_not_set(client, token):
 
     assert response.status_code == HTTPStatus.OK
     assert len(settings) == 1
-    assert settings['redmine_url'] is None
+    assert settings['redmine_url'] == ''
 
 
 def test_settings_get_saved_on_post(client, token):

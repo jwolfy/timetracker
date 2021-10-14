@@ -1,5 +1,16 @@
 <template>
-    <div>
-      <h1>Settings</h1>
-    </div>
+  <div>
+    <SettingsForm />
+  </div>
 </template>
+
+<script>
+import SettingsForm from "@/components/settings/SettingsForm";
+
+export default {
+  name: "Settings",
+  components: {
+    SettingsForm,
+  },
+};
+</script>

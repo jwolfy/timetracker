@@ -6,7 +6,6 @@ from typing import Optional
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
-
 db = SQLAlchemy()
 
 
@@ -31,7 +30,7 @@ class Issue(db.Model):
     subject = db.Column(db.String(200), nullable=False)
     is_active = db.Column(db.Boolean, default=True)
 
-    __table_args__ = (db.UniqueConstraint('issue_id', 'user_id'),)
+    __table_args__ = (db.UniqueConstraint('issue_id', 'user_id'), )
 
     @classmethod
     def get(cls, current_user, issue_id):
@@ -110,7 +109,7 @@ class Timer(db.Model):
 
 @dataclass
 class SettingsData:
-    redmine_url: Optional[str] = None
+    redmine_url: str = ''
 
 
 def settings_data_from_dict_as_str(data: dict) -> str:

@@ -20,4 +20,4 @@ services:
     env_file:
       - .env
     volumes:
-      - ./backend/timetracker.db:/app/timetracker.db
+      - ./backend:/app

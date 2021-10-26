@@ -13,12 +13,19 @@
 <script>
 import Sidebar from "@/components/Sidebar";
 import Timer from "@/components/Timer";
+import { mapActions } from "vuex";
 
 export default {
   name: "MainLayout",
   components: {
     Sidebar,
     Timer,
+  },
+  methods: {
+    ...mapActions(["fetchSettings"]),
+  },
+  created() {
+    this.fetchSettings();
   },
 };
 </script>

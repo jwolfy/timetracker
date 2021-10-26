@@ -3,24 +3,24 @@
     <div class="columns is-centered">
       <div class="column is-one-fifth">
         <b-field>
-          <b-input placeholder="Name" v-model="name"></b-input>
+          <b-input placeholder="Name" v-model="username"></b-input>
         </b-field>
         <b-field>
           <b-input
             type="password"
             placeholder="Password"
             v-model="password"
-            @keyup.native.enter="login"
+            @keyup.native.enter="register"
           ></b-input>
         </b-field>
         <div class="field is-grouped is-grouped-centered">
           <div class="control">
-            <button @click="login" class="button is-link">Login</button>
+            <button @click="register" class="button is-link">Register</button>
           </div>
         </div>
         <section class="section">
           <div class="columns is-centered">
-            <a href="/register">Create new account</a>
+            <a href="/login">Login</a>
           </div>
         </section>
       </div>
@@ -30,20 +30,20 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "Register",
   data() {
     return {
-      name: "",
+      username: "",
       password: "",
     };
   },
   methods: {
-    login: function() {
-      let name = this.name;
+    register: function() {
+      let username = this.username;
       let password = this.password;
       this.$store
-        .dispatch("login", { name, password })
-        .then(() => this.$router.push("/"))
+        .dispatch("register", { username, password })
+        .then(() => this.$router.push("/login"))
         .catch((err) => console.log(err));
     },
   },

@@ -45,6 +45,10 @@ const actions = {
       resolve();
     });
   },
+  // eslint-disable-next-line no-unused-vars
+  async register({commit}, user) {
+    await axios.post("users", user);
+  }
 };
 
 const mutations = {

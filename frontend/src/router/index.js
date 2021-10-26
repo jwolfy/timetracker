@@ -4,6 +4,7 @@ import Tasks from "@/views/Tasks.vue";
 import Issues from "@/views/Issues.vue";
 import Settings from "@/views/Settings.vue";
 import Login from "@/views/Login.vue";
+import Register from "@/views/Register.vue";
 import store from "@/store";
 
 Vue.use(VueRouter);
@@ -31,6 +32,12 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
+    meta: { layout: "empty" },
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register,
     meta: { layout: "empty" },
   },
 ];

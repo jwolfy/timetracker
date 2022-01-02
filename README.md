@@ -13,7 +13,7 @@ To start Timetracker, you need Docker and Docker Compose. In the root directory,
 docker-compose up
 ```
 
-The app should be available at `http://localhost:3000`.
+The app should be available at http://localhost:3000.
 The `/backend` directory is mounted as a volume on start-up, and the application data is stored in the SQLite-managed `timetracker.db`
 file.
 

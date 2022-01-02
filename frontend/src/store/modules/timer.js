@@ -53,7 +53,7 @@ const mutations = {
   setTimer: (state, timer) => (state.timer = timer),
   startCounter: (state) =>
     (state.timerInterval = setInterval(() => {
-      state.timer.elapsed++;
+      state.timer.elapsed = ((Date.now() / 1000) | 0) - state.timer.started_at;
     }, 1000)),
   stopCounter: (state) => clearInterval(state.timerInterval),
 };

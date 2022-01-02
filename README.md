@@ -1,10 +1,13 @@
 # Timetracker
 
-The **Timetracker** is an application to track time spent on tickers, it follows Redmine's design of issues and tasks.
+**Timetracker** is a web application for tracking time that you spend on projects and tasks.
+Its design follows Redmine's concept of issues and tasks.
 
-API is built with Flask, and the frontend client is a Vue.js single-page application.
+The backend API is built with Flask, and the frontend client is a Vue.js single-page application.
 
 ## Running
+
+To start Timetracker, you need Docker and Docker Compose. In the root directory, run:
 
 ```bash
 docker-compose up
@@ -16,7 +19,7 @@ file.
 
 ## Tests
 
-In order to run API tests locally, do the following.
+The API is covered with tests that use the Flask test client. In order to run the tests locally,
 
 1. Go to `/backend` directory:
 
